@@ -57,7 +57,7 @@ public class DownloadContentProvider extends ContentProvider {
     @Override
     public Uri insert(Uri uri, ContentValues values) {
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
-        long id = db.insert(TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, "null", values);
         Uri resultUri = null;
         if (id > -1) {
             resultUri = ContentUris.withAppendedId(URI_DOWNLOAD, id);
