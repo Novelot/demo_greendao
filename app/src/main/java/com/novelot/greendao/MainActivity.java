@@ -19,19 +19,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnCreateDb;
     private Button btnCreateTable;
     private Button btnInsert;
-    private Button btnShow;
+    private Button btnDelete;
 
     private void assignViews() {
         tv = (TextView) findViewById(R.id.tv);
         btnCreateDb = (Button) findViewById(R.id.btnCreateDb);
         btnCreateTable = (Button) findViewById(R.id.btnCreateTable);
         btnInsert = (Button) findViewById(R.id.btnInsert);
-        btnShow = (Button) findViewById(R.id.btnShow);
+        btnDelete = (Button) findViewById(R.id.btnDelete);
         //
         btnCreateDb.setOnClickListener(this);
         btnCreateTable.setOnClickListener(this);
         btnInsert.setOnClickListener(this);
-        btnShow.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
     }
 
     @Override
@@ -82,7 +82,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tv.setText(sb.toString());
             }
             break;
-            case R.id.btnShow:
+            case R.id.btnDelete:
+                DaoMaster.DevOpenHelper openHelper = new DaoMaster.DevOpenHelper(this, "db_download", null);
+                SQLiteDatabase db = openHelper.getWritableDatabase();
+                DaoMaster daoMaster = new DaoMaster(db);
+                DaoSession session = daoMaster.newSession();
+                DownloadTaskDao taskDao = session.getDownloadTaskDao();
+                taskDao.deleteByKey(1L);
+                //
+                StringBuilder sb = new StringBuilder();
+                List<DownloadTask> tasks = taskDao.loadAll();
+                if (tasks != null) {
+                    int size = tasks.size();
+                    if (size > 0) {
+                        for (int i = 0; i < size; i++) {
+                            DownloadTask t = tasks.get(i);
+                            sb.append(t.getId()).append(":").append(t.getUrl()).append(":").append(t.getLocalPath()).append("\n\r");
+                        }
+                    } else {
+                        sb.append("db is empty");
+                    }
+                }
+
+                tv.setText(sb.toString());
                 break;
         }
     }

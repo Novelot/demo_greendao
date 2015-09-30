@@ -40,10 +40,10 @@
             android:text="insert an item"/>
 
         <Button
-            android:id="@+id/btnShow"
+            android:id="@+id/btnDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="show"/>
+            android:text="delete an item"/>
 
     </LinearLayout>
 </ScrollView>
