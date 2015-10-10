@@ -78,7 +78,11 @@ public class DownloadTask {
             @Override
             public void run() {
                 DownloadCore.download(DownloadTask.this.id, DownloadTask.this.url,
+<<<<<<< HEAD
                         DownloadTask.this.localPath, 0/*DownloadTask.this.progress*/,
+=======
+                        DownloadTask.this.localPath, DownloadTask.this.progress,
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
                         new HandlerDownloadListener(id, downloadListener),
                         resolver);
             }

@@ -176,11 +176,16 @@ public class DownloadCore {
         download(downloadId, urlStr, localFileName, begin, getTotalSize(urlStr), listener, resolver);
     }
 
+<<<<<<< HEAD
     public static void download(final long downloadId, String urlStr, String localFileName, long begin, long end,
+=======
+    public static  void download(final long downloadId, String urlStr, String localFileName, long begin, long end,
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
                                 @Nullable DownloadListener listener, ContentResolver resolver) {
         final Uri uri = ContentUris.withAppendedId(DownloadContentProvider.URI_DOWNLOAD, downloadId);
         if (resolver != null) {
             ContentValues values = new ContentValues();
+<<<<<<< HEAD
             if (begin != end) {
                 values.put(DownloadContentProvider.Column.STATE, DownloadTask.state2Int(DownloadTask.State.RUNNING));
                 resolver.update(uri, values, null, null);
@@ -191,6 +196,10 @@ public class DownloadCore {
                 return;
             }
 
+=======
+            values.put(DownloadContentProvider.Column.STATE, DownloadTask.state2Int(DownloadTask.State.RUNNING));
+            resolver.update(uri, values, null, null);
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
         }
 
         if (urlStr == null || urlStr.length() == 0) {
@@ -254,9 +263,15 @@ public class DownloadCore {
 
                 //
                 if (resolver != null) {
+<<<<<<< HEAD
                     Log.i("novelot.download", "progress=" + progress);
                     ContentValues values = new ContentValues();
                     values.put(DownloadContentProvider.Column.PROGRESS, progress + begin);
+=======
+                    Log.i("novelot.download","progress="+progress);
+                    ContentValues values = new ContentValues();
+                    values.put(DownloadContentProvider.Column.PROGRESS, progress+begin);
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
                     resolver.update(uri, values, null, null);
                 }
                 //
@@ -271,6 +286,7 @@ public class DownloadCore {
                 listener.onFinish(downloadId, localFileName);
             }
             if (resolver != null) {
+<<<<<<< HEAD
                 Log.i("novelot.download", "done");
                 ContentValues values = new ContentValues();
                 values.put(DownloadContentProvider.Column.STATE, DownloadTask.state2Int(DownloadTask.State.STOP));
@@ -278,6 +294,15 @@ public class DownloadCore {
             }
         } catch (IOException e) {
             Log.i("novelot.download", e.toString());
+=======
+                Log.i("novelot.download","done");
+                ContentValues values = new ContentValues();
+                values.put(DownloadContentProvider.Column.STATE,DownloadTask.state2Int(DownloadTask.State.STOP));
+                resolver.update(uri, values, null, null);
+            }
+        } catch (IOException e) {
+            Log.i("novelot.download",e.toString());
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
             if (listener != null) {
                 listener.onError(downloadId, e);
             }
@@ -286,7 +311,11 @@ public class DownloadCore {
                 try {
                     raf.close();
                 } catch (IOException e) {
+<<<<<<< HEAD
                     Log.i("novelot.download", e.toString());
+=======
+                    Log.i("novelot.download",e.toString());
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
                     if (listener != null) {
                         listener.onError(downloadId, e);
                     }
@@ -296,7 +325,11 @@ public class DownloadCore {
                 try {
                     is.close();
                 } catch (IOException e) {
+<<<<<<< HEAD
                     Log.i("novelot.download", e.toString());
+=======
+                    Log.i("novelot.download",e.toString());
+>>>>>>> b993be2df05b4356e61cf953aa32a58d1bbc2909
                     if (listener != null) {
                         listener.onError(downloadId, e);
                     }

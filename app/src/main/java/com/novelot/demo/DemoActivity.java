@@ -44,7 +44,7 @@ public class DemoActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter = new DemoAdapter(this, null);
         mAdapter.setListener(new DemoAdapter.DemoListener() {
             @Override
-            public void onStart(final int id) {
+            public void onStart(int id) {
 //                Cursor cursor = getContentResolver().query(DownloadContentProvider.URI_DOWNLOAD, null,
 //                        DownloadContentProvider.Column.ID + "=?", new String[]{String.valueOf(id)}, null);
 //                DownloadTask task = new DownloadTask(cursor);
@@ -57,7 +57,7 @@ public class DemoActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             @Override
-            public void onPause(final int id) {
+            public void onPause(int id) {
                 Cursor cursor = getContentResolver().query(DownloadContentProvider.URI_DOWNLOAD, null,
                         DownloadContentProvider.Column.ID + "=?", new String[]{String.valueOf(id)}, null);
                 DownloadTask task = new DownloadTask(cursor);
@@ -68,7 +68,7 @@ public class DemoActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
             @Override
-            public void onDelete(final int id) {
+            public void onDelete(int id) {
                 getContentResolver().delete(DownloadContentProvider.URI_DOWNLOAD,
                         DownloadContentProvider.Column.ID + "=?", new String[]{String.valueOf(id)});
             }
@@ -124,7 +124,6 @@ public class DemoActivity extends AppCompatActivity implements LoaderManager.Loa
             cursor = null;
             cursor = getContentResolver().query(DownloadContentProvider.URI_DOWNLOAD, null, null, null, null);
             mAdapter.swapCursor(cursor);
-//            mAdapter.notifyDataSetChanged();
         }
     }
 
@@ -139,7 +138,7 @@ public class DemoActivity extends AppCompatActivity implements LoaderManager.Loa
     public void insert(View v) {
         String localPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) +
                 File.separator + System.currentTimeMillis() + ".apk";
-        DownloadTask task = new DownloadTask("http://www.novelot.com/test.apk"+"?id="+System.currentTimeMillis(), localPath);
+        DownloadTask task = new DownloadTask("http://www.novelot.com/test.apk" + "?id=" + System.currentTimeMillis(), localPath);
         getContentResolver().insert(DownloadContentProvider.URI_DOWNLOAD, task.toContentValues());
     }
 }
